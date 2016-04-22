@@ -4,7 +4,7 @@
 == Prerequisites
  * install intelliJ Docker plugin
  * install Docker Machine (https://docs.docker.com/machine/get-started)
- * check that there is a default Docker Machine: `docker-machine ps`.
+ * check that there is a default Docker Machine: `docker-machine ls`.
    If there is no default machine create one: `docker-machine create --driver virtualbox default`.
  * start the default Docker Machine: `docker-machine start default`.
  * bind the env vars to the shell: `eval "$(docker-machine env default)"`

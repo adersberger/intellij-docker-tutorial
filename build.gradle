@@ -1,0 +1,63 @@
+group 'de.qaware.sandbox'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'gradle-one-jar'
+apply plugin: 'application'
+
+// Use Java 8 by default
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+// UTF-8 should be standard by now. So use it!
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+// The main class of the application
+mainClassName = 'de.qaware.sandbox.dockerWizard.DockerWizardApplication'
+
+// Add Gradle OneJar Plugin, see https://github.com/rholder/gradle-one-jar
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.3'
+    }
+}
+
+// Set our project variables
+project.ext {
+    dropwizardVersion = '0.9.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+            'io.dropwizard:dropwizard-core:' + dropwizardVersion,
+            'io.dropwizard:dropwizard-hibernate:' + dropwizardVersion,
+            'io.dropwizard:dropwizard-migrations:' + dropwizardVersion,
+            'io.dropwizard:dropwizard-auth:' + dropwizardVersion
+    )
+}
+
+// Configure the oneJar task
+task fatJar(type: OneJar) {
+    mainClass = mainClassName
+}
+
+// Copy fat jar to docker directory
+task copyFatJar(type: Copy) {
+    from 'build/libs'
+    into 'src/main/docker'
+    rename '([^-]+)-(.+)', '$1.jar'
+    include '**/*-standalone.jar'
+}
+
+artifacts {
+    fatJar
+    copyFatJar
+}

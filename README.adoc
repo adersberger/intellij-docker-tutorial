@@ -1,0 +1,44 @@
+= intelliJ &hearts; Docker Tutorial
+:imagesdir: ./img
+
+== Prerequisites
+ * install intelliJ Docker plugin
+ * install Docker Machine (https://docs.docker.com/machine/get-started)
+ * check that there is a default Docker Machine: `docker-machine ps`.
+   If there is no default machine create one: `docker-machine create --driver virtualbox default`.
+ * start the default Docker Machine: `docker-machine start default`.
+ * bind the env vars to the shell: `eval "$(docker-machine env default)"`
+ * check if everything is correct: `docker ps`
+
+== Using Docker with intelliJ
+1) Setup Docker cloud provider in intelliJ global preferences as shown below.
+
+image::pic-1.png[Setup Docker Cloud Provider]
+
+TIP: You can get the API URL by executing `docker-machine ls` and using the shown IP & port for the `default`
+ machine.
+
+2) Check connection to Docker daemon in intelliJ "Docker" tab
+
+image::pic-2.png[Check connection in "Docker" tab]
+
+3) Create new project from version control using github (https://github.com/adersberger/intellij-docker-tutorial.git)
+
+4) Create new run configuration to deploy application to Docker.
+
+image::pic-4.png[First tab]
+
+image::pic-5.png[First tab]
+
+TIP: The same is also possible for Docker Compose files. Just point the "Deployment" dropdown to the Docker Compose file.
+
+5) Run the configuration and inspect the Docker container. You can access the console output, environment variables, port bindings ... And btw a browser should open and point to our REST endpoint.
+
+image::pic-3.png[First tab]
+
+6) Celebrate!
+
+== Sources
+ * Docker intelliJ Help: https://www.jetbrains.com/help/idea/2016.1/docker.html
+ * Docker intelliJ Plugin: https://plugins.jetbrains.com/plugin/7724
+ * Blog post on Docker intelliJ: https://blog.jetbrains.com/idea/2015/03/docker-support-in-intellij-idea-14-1

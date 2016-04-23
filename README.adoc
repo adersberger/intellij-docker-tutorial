@@ -24,15 +24,17 @@ image::pic-2.png[Check connection in "Docker" tab]
 
 3) Create new project from version control using github (https://github.com/adersberger/intellij-docker-tutorial.git)
 
-4) Create new run configuration to deploy application to Docker.
+4) Create a new run configuration to deploy application to Docker as shown on the following screenshots:
 
 image::pic-4.png[First tab]
+
+TIP: Be sure not to forget to add the Gradle tasks as a "before launch" action as shown at the very bottom of the screenshot.
 
 image::pic-5.png[First tab]
 
 TIP: The same is also possible for Docker Compose files. Just point the "Deployment" dropdown to the Docker Compose file.
 
-5) Run the configuration and inspect the Docker container. You can access the console output, environment variables, port bindings ... And btw a browser should open and point to our REST endpoint.
+5) Run the configuration and inspect the Docker container. A browser will open automagically and point to the REST endpoint. Within intelliJ you can access the containers console output, environment variables, port bindings etc.
 
 image::pic-3.png[First tab]
 

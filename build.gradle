@@ -50,14 +50,11 @@ task fatJar(type: OneJar) {
 }
 
 // Copy fat jar to docker directory
-task copyFatJar(type: Copy) {
+task copyFatJar(type: Copy, dependsOn: fatJar) {
     from 'build/libs'
     into 'src/main/docker'
     rename '([^-]+)-(.+)', '$1.jar'
     include '**/*-standalone.jar'
 }
 
-artifacts {
-    fatJar
-    copyFatJar
-}
+build.finalizedBy copyFatJar
